@@ -61,7 +61,6 @@ def main():
                     check_email_for_spam(email_content)
             else:
                 logging.info("Waiting for new emails...")
-            # Wait for a specified time before checking for new emails again
             time.sleep(60)  # Check every 60 seconds
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ from nltk.tokenize import word_tokenize
 from scipy.io import arff
 import logging
 from logging.handlers import RotatingFileHandler
-import imaplib  # Import for IMAP operations
+import imaplib
 
 # Configure logging
 handler = RotatingFileHandler('email_checker.log', maxBytes=2000, backupCount=5)
@@ -26,8 +26,7 @@ def load_datasets():
         # Load phishing data from ARFF file
         phishing_data, meta = arff.loadarff('Data/PhishingData.arff')
         phishing_df = pd.DataFrame(phishing_data)
-
-        # Debugging: Print columns to verify 'text' column presence
+        
         print("Columns in dataset:", phishing_df.columns)
 
         # Ensure the 'text' column is present
@@ -56,15 +55,6 @@ def preprocess_text(text):
         return ""
 
 def train_phishing_detector(data_path):
-    """Trains a phishing detector model.
-
-    Args:
-        data_path (str): Path to the CSV file containing the dataset.
-
-    Returns:
-        tuple: A tuple containing the trained model and vectorizer.
-    """
-
     try:
         # Load the dataset
         df = pd.read_csv(data_path)
@@ -117,7 +107,7 @@ def check_email_for_phishing(email_content, model, vectorizer):
         if prediction[0] == 1:
             logging.info("This email is phishing.")
             print("This email is phishing.")
-            # Example action: Move to a phishing folder
+            # Action: Move to a phishing folder
             move_email_to_folder(email_content, 'Phishing')
         else:
             logging.info("This email is legitimate.")
@@ -125,7 +115,7 @@ def check_email_for_phishing(email_content, model, vectorizer):
     except Exception as e:
         logging.error(f"Error checking email for phishing: {e}")
 
-# Example function to move email (implementation depends on your email server)
+# Function to move email (implementation depends on your email server)
 def move_email_to_folder(email_content, folder_name):
     try:
         # Establish an IMAP connection (example using Gmail)

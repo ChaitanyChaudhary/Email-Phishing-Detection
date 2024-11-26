@@ -6,8 +6,7 @@ from phishingDetector import check_email_for_phishing
 from logging.handlers import RotatingFileHandler
 from bs4 import BeautifulSoup
 
-handler = RotatingFileHandler(
-    'email_checker.log', maxBytes=2000, backupCount=5)
+handler = RotatingFileHandler('email_checker.log', maxBytes=2000, backupCount=5)
 logging.basicConfig(handlers=[handler], level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
@@ -56,7 +55,7 @@ def analyze_attachment(filename, payload):
     # Placeholder for analysis logic
     if filename.endswith(('.exe', '.bat', '.cmd')):
         return True  # Considered suspicious
-    # Add more sophisticated checks as needed
+    # Add more checks as needed
     return False
 
 

@@ -12,7 +12,7 @@ handler = RotatingFileHandler('email_checker.log', maxBytes=2000, backupCount=5)
 logging.basicConfig(handlers=[handler], level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def main():
-    # Train or load your phishing detection model and vectorizer
+    # Train or load phishing detection model and vectorizer
     try:
         model, vectorizer = train_phishing_detector()
         logging.info("Phishing detection model and vectorizer loaded successfully.")

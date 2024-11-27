@@ -1,8 +1,8 @@
-
 # Email Phishing Detection
 
 Email Phishing Detection is a Python project that monitors and analyzes incoming emails to identify phishing and spam attempts. Using machine learning and natural language processing, it classifies emails as phishing, spam, or legitimate while maintaining detailed logs and monitoring system resources.
 
+This project is open-source, and I’m actively seeking contributors to help improve it. As a beginner in machine learning, I’ve made mistakes in the code, and some parts are a bit messy. Your guidance, bug fixes, or contributions would be greatly appreciated!
 ## Features
 
 - Spam Detection: Detects emails with suspicious patterns using keyword-based matching and attachment analysis.
@@ -76,11 +76,28 @@ python main.py
 
 - Backup logs are stored with incremental numbering (e.g., email_checker.log.1).
 
+## Current Challenges
+
+This project is still a work in progress, and as a beginner in machine learning, I’ve encountered several challenges:
+- Dataset Loading: Struggling to properly load and preprocess datasets.
+
+- Model Training: Facing difficulties in training the ML model for phishing detection.
+
+If you notice errors or inefficiencies in the code, please feel free to contribute or offer guidance. Even small fixes, advice, or suggestions would be a huge help!
+
+
+## Contributing
+
+This is an open-source project licensed under the MIT License. Contributions are welcome, whether it’s fixing bugs, reviewing the code, or helping improve the model.
+
+Here’s the [GitHub Repository](https://github.com/ChaitanyChaudhary/Email-Phishing-Detection). Please check it out and feel free to submit pull requests or issues.
+
+
 ## Limitations
 
 - Email Service: Currently supports Gmail IMAP. For other email providers, update the IMAP server configuration in login.py.
 
-- Dataset: A preprocessed phishing dataset is required to train the phishing detection model. Ensure the dataset contains a text column with email content and a label column with binary classification (1 for phishing, 0 for legitimate).
+- Dataset: Dataset: A preprocessed phishing dataset is required to train the model.
 
 - Environment: Requires a .env file for securely storing email credentials.
 

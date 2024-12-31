@@ -86,7 +86,7 @@ This project is open-source and licensed under the MIT License. Contributions ar
 
 ## License
 
-This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
+This project is licensed under the [MIT](LICENSE) License.
 
 ## Authors
 

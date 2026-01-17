@@ -1,0 +1,171 @@
+EMAIL PHISHING DETECTION - FLOW DIAGRAM (Simple Text Format)
+============================================================
+
+START APPLICATION
+|
+V
+LOAD CONFIGURATION
+Load environment variables and settings from config file
+|
+V
+INITIALIZE LOGGING SYSTEM
+Set up rotating log file handlers for system logging
+|
+V
+GMAIL AUTHENTICATION
+Connect to Gmail IMAP server using credentials
+|
+V
+DECISION: Is Login Successful?
+|
+|--NO--> LOG ERROR AND EXIT
+         Application stops, error is logged
+|
+|--YES--> LOAD MACHINE LEARNING MODEL AND VECTORIZER
+          Check if model files exist on disk
+          |
+          V
+          DECISION: Do Model Files Exist?
+          |
+          |--NO--> TRAIN NEW MODEL
+                   |
+                   V
+                   LOAD TRAINING DATASET
+                   Read emails.csv file with labeled data
+                   |
+                   V
+                   PREPROCESS EMAIL TEXT
+                   Clean and normalize email content
+                   Remove stop words and tokenize
+                   |
+                   V
+                   TERM FREQUENCY-INVERSE DOCUMENT FREQUENCY VECTORIZATION
+                   Convert text to numerical features using TF-IDF
+                   |
+                   V
+                   TRAIN NAIVE BAYES MACHINE LEARNING MODEL
+                   Train classification model on vectorized data
+                   |
+                   V
+                   SAVE TRAINED MODEL AND TEXT VECTORIZER
+                   Save to phishing_model.pkl and vectorizer.pkl
+                   |
+                   V
+                   GOTO: START EMAIL MONITORING LOOP
+          |
+          |--YES--> LOAD EXISTING MODEL
+                    Load model and vectorizer from saved files
+                    |
+                    V
+                    GOTO: START EMAIL MONITORING LOOP
+
+START EMAIL MONITORING LOOP (Continuous Loop)
+|
+V
+FETCH UNREAD EMAILS FROM GMAIL
+Query Gmail inbox for new unread emails via IMAP
+|
+V
+DECISION: Are New Emails Found?
+|
+|--NO--> WAIT 60 SECONDS BEFORE NEXT CHECK
+         Sleep for 60 seconds
+         |
+         V
+         GOTO: START EMAIL MONITORING LOOP
+|
+|--YES--> PROCESS EACH EMAIL INDIVIDUALLY
+          For each email found:
+          |
+          V
+          EXTRACT EMAIL COMPONENTS AND METADATA
+          Get email ID and raw email data from Gmail
+          |
+          V
+          PARSE EMAIL SUBJECT, SENDER, AND BODY CONTENT
+          Extract subject line, sender address, and body text
+          Handle both single-part and multipart emails
+          |
+          V
+          PREPROCESS AND CLEAN EMAIL TEXT
+          Normalize text to lowercase
+          Remove special characters and stop words
+          Tokenize and filter words
+          |
+          V
+          EXTRACT TF-IDF FEATURES FROM TEXT
+          Transform cleaned text using trained vectorizer
+          Convert to numerical feature vector
+          |
+          V
+          MACHINE LEARNING MODEL PREDICTION
+          Use trained model to predict classification
+          Get prediction probabilities for both classes
+          |
+          V
+          DECISION: Is Phishing Attack Detected?
+          |
+          |--YES--> LOG PHISHING ALERT AND WARNING
+                   Write phishing detection to log file
+                   |
+                   V
+                   DISPLAY PHISHING WARNING TO USER
+                   Print warning message to console
+                   |
+                   V
+                   GOTO: CONTINUE MONITORING FOR NEW EMAILS
+          |
+          |--NO--> LOG LEGITIMATE EMAIL CONFIRMATION
+                   Write legitimate email status to log file
+                   |
+                   V
+                   DISPLAY LEGITIMATE EMAIL STATUS TO USER
+                   Print confirmation message to console
+                   |
+                   V
+                   GOTO: CONTINUE MONITORING FOR NEW EMAILS
+
+CONTINUE MONITORING FOR NEW EMAILS
+|
+V
+GOTO: START EMAIL MONITORING LOOP (Return to beginning of loop)
+
+
+PROCESS SUMMARY:
+================
+
+1. APPLICATION INITIALIZATION PHASE
+   - Start application execution
+   - Load configuration settings
+   - Initialize logging system
+   - Authenticate with Gmail IMAP server
+
+2. MODEL MANAGEMENT PHASE
+   - Check for existing trained model
+   - If no model exists, train new model using training dataset
+   - If model exists, load from saved files
+   - Model includes both classification model and text vectorizer
+
+3. EMAIL MONITORING LOOP (Continuous)
+   - Fetch unread emails from Gmail inbox
+   - For each email found:
+     * Extract email components
+     * Parse subject, sender, and body
+     * Preprocess and clean text
+     * Extract features using TF-IDF
+     * Predict using machine learning model
+     * Log and display results
+   - Wait 60 seconds before next check
+   - Repeat indefinitely
+
+4. ERROR HANDLING
+   - Authentication failures: Log error and exit
+   - Email processing errors: Log error and continue
+   - Model loading errors: Log error and raise exception
+
+5. DATA FLOW
+   - Input: Gmail emails via IMAP protocol
+   - Processing: Text preprocessing and feature extraction
+   - Analysis: Machine learning model classification
+   - Output: Phishing/legitimate classification results
+   - Storage: Log files and model persistence files
